@@ -1,18 +1,26 @@
-package com.example.demo;
+package com.example.demo.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
-
+@EqualsAndHashCode
 @Setter
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Vehicle {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "seq_veh"
+    )
+    @SequenceGenerator(
+            name = "seq_veh",
+            initialValue = 4
+    )
     @Column(name = "id", nullable = false)
     private Long id;
     private String vin;

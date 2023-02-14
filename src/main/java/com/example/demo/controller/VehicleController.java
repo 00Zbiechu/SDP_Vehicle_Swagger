@@ -1,29 +1,41 @@
-package com.example.demo;
+package com.example.demo.controller;
 
-import com.example.demo.model.Vehicle;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-@Slf4j
+import com.example.demo.model.VehicleDTO;
+import com.example.demo.service.VehicleService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @RestController
-@RequestMapping("/registry")
-public class RegistryController {
+@RequiredArgsConstructor
+@RequestMapping("/vehicle")
+public class VehicleController {
+
+    private final VehicleService vehicleService;
+
+
+    @GetMapping
+    public ResponseEntity<List<VehicleDTO>> findAll(){
+
+        return ResponseEntity.ok(vehicleService.findAll());
+
+    }
 
     @GetMapping("/{vin}")
-    public Vehicle get(@PathVariable("vin") String vin){
+    public ResponseEntity<VehicleDTO> findByVin(@PathVariable("vin") String vin){
 
-        Vehicle v = new Vehicle();
-        v.setVin(vin);
-        v.setModel("Arteon");
-        v.setBrand("VW");
-        v.setProductionYear(2022);
+       return ResponseEntity.ok(vehicleService.findByVin(vin));
 
-        log.info("Returning vehicle with vin: {}",vin);
+    }
 
-        return v;
+    @PostMapping
+    public ResponseEntity<VehicleDTO> save(@RequestBody VehicleDTO vehicle){
+
+        vehicleService.save(vehicle);
+        return ResponseEntity.ok(vehicle);
 
     }
 
