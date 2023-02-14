@@ -3,7 +3,6 @@ package com.example.demo;
 
 import com.example.demo.model.Vehicle;
 import com.example.demo.model.VehicleDTO;
-import com.example.demo.model.VehicleMapper;
 import com.example.demo.repository.VehicleRepository;
 import com.example.demo.service.VehicleServiceImpl;
 import lombok.extern.slf4j.Slf4j;
